@@ -1,4 +1,4 @@
-# Funrado_Case
+# Funrado Case
 
 You are responsible for designing a clone of 3D Puzzle game called “Frog Feed Order” with Unity 2022 LTS. 
 
@@ -36,21 +36,21 @@ before feeding all the frogs, the player should lose the game.
 17. If you can’t understand the tasks perfectly, please feel free to ask.
 
 ## DESIGN EXPECTATIONS
-- ** OOP(Polymorphism, Inheritance)
-- ** S-O-L-I-D
-- ** Design Patterns(Singleton,Observer,MVC (MVVM))
-- ** Draw Call Optimization
-- ** Coroutine
-- ** Events
+-  OOP(Polymorphism, Inheritance)
+-  S-O-L-I-D
+-  Design Patterns(Singleton,Observer,MVC (MVVM))
+-  Draw Call Optimization
+-  Coroutine
+-  Events
 
 We expect you to write clean and reusable code. Also, all aspects of your project will be considered including 
 your folder organization and your level design.
+
 ## IMPORTANT LINKS
-- ** Reference Game Gameplay Video Link:
-Frog Feed Order - Gameplay (youtube.com)
-- ** Reference Game GooglePlay Link:
-https://play.google.com/store/apps/details?id=com.funrado.frogfeedorder&gl=TR
+-  Reference Game Gameplay Video Link: https://www.youtube.com/shorts/oHZiahEHySo
+-  Reference Game GooglePlay Link: https://play.google.com/store/apps/details?id=com.funrado.frogfeedorder&gl=TR
+
 
 ## SAVE & SEND!
-- **You are expected to share your project via BitBucket or Github (send us an email that contains the link to the 
+- You are expected to share your project via BitBucket or Github (send us an email that contains the link to the 
 project – umutsahin@funrado.com).
