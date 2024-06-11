@@ -34,7 +34,7 @@ before feeding all the frogs, the player should lose the game.
 15. You should be able to answer all project-related questions.
 16. There should be at least three different levels. (You can copy levels from the reference.)
 17. If you can’t understand the tasks perfectly, please feel free to ask.
-
+#########################################################################
 DESIGN EXPECTATIONS
 • OOP
 Polymorphism
@@ -47,14 +47,16 @@ MVC (MVVM)
 • Draw Call Optimization
 • Coroutine
 • Events
+#########################################################################
 We expect you to write clean and reusable code. Also, all aspects of your project will be considered including 
 your folder organization and your level design.
+#########################################################################
 IMPORTANT LINKS
 • Reference Game Gameplay Video Link:
 Frog Feed Order - Gameplay (youtube.com)
 • Reference Game GooglePlay Link:
 https://play.google.com/store/apps/details?id=com.funrado.frogfeedorder&gl=TR
-
+#########################################################################
 SAVE & SEND!
 You are expected to share your project via BitBucket or Github (send us an email that contains the link to the 
 project – umutsahin@funrado.com).
