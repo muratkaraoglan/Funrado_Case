@@ -7,8 +7,18 @@ public class CellManager : MonoBehaviour
     [SerializeField] private List<CellData> _myCellsData = new();
     [SerializeField] private List<Cell> _myCells = new();
     Dictionary<Direction, CellManager> _neighboors = new();
+    private void Awake()
+    {
+        GameManager.Instance.MaxHeight = _myCellsData.Count;
+    }
 
     private void Start()
+    {     
+        FindNeighboors();
+        InitCells();
+    }
+
+    void FindNeighboors()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -22,14 +32,21 @@ public class CellManager : MonoBehaviour
                 }
             }
         }
+    }
 
+    void InitCells()
+    {
         for (int i = 0; i < _myCellsData.Count; i++)
         {
-            _myCells.Add(GameManager.Instance.CreateBaseCell(transform, _myCellsData[i], i));
+            Cell cell = GameManager.Instance.CreateBaseCell(transform, _myCellsData[i], i);
+            _myCells.Add(cell);
         }
     }
 
+
 }
+
+
 
 public enum Direction
 {

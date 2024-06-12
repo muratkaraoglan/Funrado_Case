@@ -4,16 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[DefaultExecutionOrder(-9)]
 public class GameManager : Singelton<GameManager>
 {
     [SerializeField] private List<CellTypeHolder> cellTypes;
+    [SerializeField] private float _cellHeightRate = .1f;
+
+    [SerializeField] private float _maxHeight = 0;
+
+    public float MaxHeight
+    {
+        get { return _maxHeight * _cellHeightRate + _cellHeightRate; }
+        set
+        {
+            _maxHeight = value > _maxHeight ? value : _maxHeight;
+        }
+    }
 
     public Cell CreateBaseCell(Transform parent, CellData data, int index)
     {
-        GameObject cellPrefab = cellTypes.Find(c => c.CellColor == data.CellColor).CellBasePrefab;
+        CellTypeHolder cellTypeHolder = cellTypes.Find(c => c.CellColor == data.CellColor);
+
+        GameObject cellPrefab = cellTypeHolder.CellBasePrefab;
 
         Vector3 position = parent.position;
-        position.y = (index + 1) * .1f;
+        position.y = (index + 1) * _cellHeightRate;
         GameObject cellGO = Instantiate(cellPrefab, position, Quaternion.identity, parent);
 
         Cell cell;
@@ -35,10 +50,22 @@ public class GameManager : Singelton<GameManager>
                     break;
                 }
         }
+        cell = cellGO.GetComponent<Cell>();
+        cell.InitCellData(data, CellTypeToGameObject(data.CellType, cellTypeHolder));
 
-        return cellGO.GetComponent<Cell>();
+        return cell;
     }
 
+
+    GameObject CellTypeToGameObject(CellType cellType, CellTypeHolder cellTypeHolder) =>
+
+        cellType switch
+        {
+            CellType.Arrow => cellTypeHolder.CellArrowPrefab,
+            CellType.Frog => cellTypeHolder.CellFrogPrefab,
+            CellType.Grape => cellTypeHolder.CellGrapePrefab,
+            _ => null
+        };
 
 }
 

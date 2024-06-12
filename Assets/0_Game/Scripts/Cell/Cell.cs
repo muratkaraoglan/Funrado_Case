@@ -6,18 +6,21 @@ using UnityEngine.EventSystems;
 
 public abstract class Cell : MonoBehaviour
 {
+    protected CellData _cellData;
+    protected GameObject _childGameObject;
 
-    public void InitCellData(CellData data)
+    public void InitCellData(CellData data, GameObject cellChldGOPrefab)
     {
-
+        _cellData = data;
+        Vector3 position = transform.position;
+        position.y = GameManager.Instance.MaxHeight;
+        Instantiate(cellChldGOPrefab, position, Quaternion.identity, transform);
     }
 
     public abstract void ActivateCell();// Activate top cell
 
-    public virtual void OnTongueArriveCell()
-    {
+    public abstract void OnTongueArriveCell();
 
-    }
 
 
 }
