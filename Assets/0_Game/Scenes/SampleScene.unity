@@ -569,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[1].CellType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[2].CellType
@@ -742,7 +742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[1].CellType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[2].CellType
@@ -754,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[2].CellColor
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[2].LookDirection
@@ -866,6 +866,7 @@ MonoBehaviour:
     CellArrowPrefab: {fileID: 1177207057720312761, guid: 29024b562dff46c4ba62f9caa70956c7, type: 3}
   _cellHeightOffset: 0.1
   _maxHeight: 0
+  _numberOfMove: 1
   <TongueDeltaMovementAmount>k__BackingField: 0.01
   <TongueYOffset>k__BackingField: 0.2
 --- !u!4 &1655693698
@@ -893,7 +894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1784666496}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Camera Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1043,6 +1044,10 @@ PrefabInstance:
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[2].CellColor
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
+      propertyPath: _myCellsData.Array.data[1].LookDirection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4926733021209441353, guid: 0f55b3e33507ebc45a49f476f65f0baa, type: 3}
       propertyPath: _myCellsData.Array.data[2].LookDirection

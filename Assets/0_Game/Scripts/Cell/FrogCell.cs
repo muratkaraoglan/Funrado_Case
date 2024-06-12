@@ -10,6 +10,7 @@ public class FrogCell : Cell
     private LineRenderer _tongue;
     private List<Cell> _visitedCells = new();
     public Direction MovementDirection;
+    public event Action OnTouchFrog = () => { };
     private void Awake()
     {
         _myCollider = gameObject.AddComponent<BoxCollider>();
@@ -30,10 +31,11 @@ public class FrogCell : Cell
     private int _tonguePositionIndex = 0;
     private void OnMouseDown()
     {
-        print("Down");
-        if (_isActive && !_isTongueMove)
+
+        if (_isActive && !_isTongueMove && GameManager.Instance.IsCanMove)
         {
             //TODO: Decrease movement count
+            OnTouchFrog.Invoke();
             _isTongueMove = true;
             CellManager targetCellManger = _cellManager.GetTargetCellManager(_cellData.LookDirection);
             MovementDirection = _cellData.LookDirection;

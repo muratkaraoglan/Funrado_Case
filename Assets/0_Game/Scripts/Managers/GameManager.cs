@@ -9,8 +9,9 @@ public class GameManager : Singelton<GameManager>
 {
     [SerializeField] private List<CellTypeHolder> cellTypes;
     [SerializeField] private float _cellHeightOffset = .1f;
-
     [SerializeField] private float _maxHeight = 0;
+    [SerializeField] private int _numberOfMove;
+
     [field: SerializeField, Min(.001f)] public float TongueDeltaMovementAmount { get; private set; } = .01f;
     [field: SerializeField] public float TongueYOffset { get; private set; } = .2f;
     public float MaxHeight
@@ -42,7 +43,8 @@ public class GameManager : Singelton<GameManager>
                 }
             case CellType.Frog:
                 {
-                    cellGO.AddComponent<FrogCell>();
+                    cellGO.AddComponent<FrogCell>().OnTouchFrog += OnTouchFrog; ;
+
                     break;
                 }
             case CellType.Grape:
@@ -57,6 +59,10 @@ public class GameManager : Singelton<GameManager>
         return cell;
     }
 
+    private void OnTouchFrog()
+    {
+        _numberOfMove--;
+    }
 
     GameObject CellTypeToGameObject(CellType cellType, CellTypeHolder cellTypeHolder) =>
 
@@ -67,7 +73,7 @@ public class GameManager : Singelton<GameManager>
             CellType.Grape => cellTypeHolder.CellGrapePrefab,
             _ => null
         };
-
+    public bool IsCanMove => _numberOfMove > 0;
 }
 
 [Serializable]
