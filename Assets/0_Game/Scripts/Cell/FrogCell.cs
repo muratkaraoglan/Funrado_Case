@@ -6,18 +6,26 @@ using UnityEngine.EventSystems;
 
 public class FrogCell : Cell
 {
+    private bool _isActive;
+    private bool _isTongueMove;
+    private int _tonguePositionIndex = 0;
     private BoxCollider _myCollider;
     private LineRenderer _tongue;
     private List<Cell> _visitedCells = new();
     public Direction MovementDirection;
     public event Action OnTouchFrog = () => { };
+    public event Action<FrogCell> OnFrogDestroy = _ => { };
     private void Awake()
     {
         _myCollider = gameObject.AddComponent<BoxCollider>();
         _myCollider.enabled = false;
     }
 
-    private bool _isActive;
+    private void OnDestroy()
+    {
+        OnFrogDestroy.Invoke(this);
+    }
+
     public override void ActivateCell()
     {
         Vector3 lookDirection = VectorExtension.DirectonToVector3(_cellData.LookDirection);
@@ -27,8 +35,7 @@ public class FrogCell : Cell
         _childGameObject.SetActive(true);
         _tongue = _childGameObject.transform.GetChild(1).GetComponent<LineRenderer>();
     }
-    private bool _isTongueMove;
-    private int _tonguePositionIndex = 0;
+
     private void OnMouseDown()
     {
 
@@ -81,7 +88,6 @@ public class FrogCell : Cell
         }
         else
         {
-            print("Collect");
             StartCoroutine(ReverseTongueMovementSuccesfull());
         }
     }
@@ -103,6 +109,7 @@ public class FrogCell : Cell
             yield return null;
         }
         _isTongueMove = false;
+        GameManager.Instance.CheckGameState();
     }
 
     IEnumerator ReverseTongueMovementSuccesfull()
