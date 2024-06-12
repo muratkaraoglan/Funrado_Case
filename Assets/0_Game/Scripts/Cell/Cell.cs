@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,21 +9,25 @@ public abstract class Cell : MonoBehaviour
 {
     protected CellData _cellData;
     protected GameObject _childGameObject;
-
+    protected CellManager _cellManager;
+    public event Action OnCellCollected = () => { };
     public void InitCellData(CellData data, GameObject cellChldGOPrefab)
     {
         _cellData = data;
         Vector3 position = transform.position;
         position.y = GameManager.Instance.MaxHeight;
-        Instantiate(cellChldGOPrefab, position, Quaternion.identity, transform);
+        _childGameObject = Instantiate(cellChldGOPrefab, position, Quaternion.identity, transform);
+
     }
 
     public abstract void ActivateCell();// Activate top cell
 
-    public abstract void OnTongueArriveCell();
+    public abstract void OnTongueArriveCell(FrogCell frogCell, Action<Cell, CellManager> onCorrectCell = null, Action onWrongCell = null);
 
-
-
+    public void SetCellManager(CellManager cellManager) => _cellManager = cellManager;
+    public CellData Data => _cellData;
+    public Transform CellTypeTransform => _childGameObject.transform;
+    public void InvokeCellCollected() => OnCellCollected.Invoke();
 }
 
 public enum CellType

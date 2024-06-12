@@ -8,13 +8,14 @@ using System.Linq;
 public class GameManager : Singelton<GameManager>
 {
     [SerializeField] private List<CellTypeHolder> cellTypes;
-    [SerializeField] private float _cellHeightRate = .1f;
+    [SerializeField] private float _cellHeightOffset = .1f;
 
     [SerializeField] private float _maxHeight = 0;
-
+    [field: SerializeField, Min(.001f)] public float TongueDeltaMovementAmount { get; private set; } = .01f;
+    [field: SerializeField] public float TongueYOffset { get; private set; } = .2f;
     public float MaxHeight
     {
-        get { return _maxHeight * _cellHeightRate + _cellHeightRate; }
+        get { return _maxHeight * _cellHeightOffset + _cellHeightOffset; }
         set
         {
             _maxHeight = value > _maxHeight ? value : _maxHeight;
@@ -28,7 +29,7 @@ public class GameManager : Singelton<GameManager>
         GameObject cellPrefab = cellTypeHolder.CellBasePrefab;
 
         Vector3 position = parent.position;
-        position.y = (index + 1) * _cellHeightRate;
+        position.y = (index + 1) * _cellHeightOffset;
         GameObject cellGO = Instantiate(cellPrefab, position, Quaternion.identity, parent);
 
         Cell cell;
