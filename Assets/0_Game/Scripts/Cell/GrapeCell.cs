@@ -11,7 +11,7 @@ public class GrapeCell : Cell
     {
         if (frogCell.Data.CellColor == _cellData.CellColor)
         {
-            CellManager nextCellManager = _cellManager.GetTargetCellManager(frogCell.Data.LookDirection);
+            CellManager nextCellManager = _cellManager.GetTargetCellManager(frogCell.MovementDirection);//
             onCorrectCell.Invoke(this, nextCellManager);
         }
         else

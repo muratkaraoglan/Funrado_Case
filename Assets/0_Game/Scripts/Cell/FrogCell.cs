@@ -9,6 +9,7 @@ public class FrogCell : Cell
     private BoxCollider _myCollider;
     private LineRenderer _tongue;
     private List<Cell> _visitedCells = new();
+    public Direction MovementDirection;
     private void Awake()
     {
         _myCollider = gameObject.AddComponent<BoxCollider>();
@@ -35,6 +36,7 @@ public class FrogCell : Cell
             //TODO: Decrease movement count
             _isTongueMove = true;
             CellManager targetCellManger = _cellManager.GetTargetCellManager(_cellData.LookDirection);
+            MovementDirection = _cellData.LookDirection;
             _tongue.positionCount = 2;
             Vector3 startPosition = transform.position;
             startPosition.y = GameManager.Instance.MaxHeight + GameManager.Instance.TongueYOffset;
@@ -110,7 +112,7 @@ public class FrogCell : Cell
         Cell visitedCell = _visitedCells[^1];
         _visitedCells.Remove(visitedCell);
         visitedCell.CellTypeTransform.SetParent(tongueHelperGO.transform);
-
+        visitedCell.InvokeCellCollected(visitedCell);
         while (_tongue.positionCount != 1)
         {
             Vector3 currentPostion = _tongue.GetPosition(_tonguePositionIndex);
@@ -126,25 +128,28 @@ public class FrogCell : Cell
                 _tongue.positionCount--;
                 if (_visitedCells.Count != 0)
                 {
+
                     visitedCell = _visitedCells[^1];
-                    print(visitedCell.transform.parent.name);
+
                     _visitedCells.Remove(visitedCell);
 
                     if (visitedCell.Data.CellType == CellType.Grape)
                     {
                         visitedCell.CellTypeTransform.SetParent(tongueHelperTransform);
                     }
-                    visitedCell.InvokeCellCollected();
+                    visitedCell.InvokeCellCollected(visitedCell);
                 }
             }
             yield return null;
         }
         _isTongueMove = false;
+        Destroy(tongueHelperGO);
+        InvokeCellCollected(this);
     }
 
     public override void OnTongueArriveCell(FrogCell frogCell, Action<Cell, CellManager> onCorrectCell = null, Action onWrongCell = null)
     {
-
+        onWrongCell.Invoke();
     }
 
 

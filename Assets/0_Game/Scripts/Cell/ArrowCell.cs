@@ -15,6 +15,7 @@ public class ArrowCell : Cell
         if (frogCell.Data.CellColor == _cellData.CellColor)
         {
             CellManager nextCellManager = _cellManager.GetTargetCellManager(Data.LookDirection);
+            frogCell.MovementDirection = Data.LookDirection;
             onCorrectCell.Invoke(this, nextCellManager);
         }
         else

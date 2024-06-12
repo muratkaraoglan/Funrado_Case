@@ -10,7 +10,7 @@ public abstract class Cell : MonoBehaviour
     protected CellData _cellData;
     protected GameObject _childGameObject;
     protected CellManager _cellManager;
-    public event Action OnCellCollected = () => { };
+    public event Action<Cell> OnCellCollected = _ => { };
     public void InitCellData(CellData data, GameObject cellChldGOPrefab)
     {
         _cellData = data;
@@ -27,7 +27,7 @@ public abstract class Cell : MonoBehaviour
     public void SetCellManager(CellManager cellManager) => _cellManager = cellManager;
     public CellData Data => _cellData;
     public Transform CellTypeTransform => _childGameObject.transform;
-    public void InvokeCellCollected() => OnCellCollected.Invoke();
+    public void InvokeCellCollected(Cell cell) => OnCellCollected.Invoke(cell);
 }
 
 public enum CellType

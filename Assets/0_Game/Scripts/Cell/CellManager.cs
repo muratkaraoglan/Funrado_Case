@@ -16,6 +16,7 @@ public class CellManager : MonoBehaviour
 
     private void Start()
     {
+        if (_myCellsData.Count == 0) return;
         FindNeighboors();
         InitCells();
     }
@@ -30,8 +31,11 @@ public class CellManager : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent(out CellManager cellManager))
                 {
-                    _neighboors.Add((Direction)i, cellManager);
-                    _neighboorList.Add(cellManager);
+                    if (cellManager.CellCount != 0)
+                    {
+                        _neighboors.Add((Direction)i, cellManager);
+                        _neighboorList.Add(cellManager);
+                    }
                 }
             }
         }
@@ -46,24 +50,25 @@ public class CellManager : MonoBehaviour
             cell.OnCellCollected += OnCellCollected;
             cell.SetCellManager(this);
         }
-        if (_myCells.Count == 0) {
-            RemoveNeightboor(this);
-            _neighboors.Clear();
+        if (_myCells.Count == 0)
+        {
             return;
         }
         _topCell = _myCells[^1];
         _topCell.ActivateCell();
     }
 
-    private void OnCellCollected()
+    private void OnCellCollected(Cell cell)
     {
-        print("Remove Cell " + gameObject.name);
+        if (_topCell != cell) return;
         _myCells.Remove(_topCell);
+        _topCell.OnCellCollected -= OnCellCollected;
         Transform topCellTransform = _topCell.transform;
         Destroy(topCellTransform.gameObject);
         if (_myCells.Count != 0)
         {
             _topCell = _myCells[^1];
+            _topCell.ActivateCell();
         }
         else
         {
@@ -81,6 +86,7 @@ public class CellManager : MonoBehaviour
             if (pair.Value == cellManager)
             {
                 _neighboors.Remove(pair.Key);
+                _neighboorList.Remove(pair.Value);
                 break;
             }
         }
@@ -99,6 +105,8 @@ public class CellManager : MonoBehaviour
     {
         _topCell.OnTongueArriveCell(cell, onCorrectCell, onWrongCell);
     }
+
+    public int CellCount => _myCellsData.Count;
 }
 
 
