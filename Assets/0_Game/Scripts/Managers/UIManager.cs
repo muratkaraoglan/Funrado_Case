@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.OnNumberOfMovementChanged += OnNumberOfMovementChanged;
-        GameManager.Instance.OnGameFinished += OnGameFinished;
+        GameManager.Instance.OnNumberOfMovementChanged -= OnNumberOfMovementChanged;
+        GameManager.Instance.OnGameFinished -= OnGameFinished;
     }
 
     private void OnGameFinished(bool state)
@@ -39,10 +40,10 @@ public class UIManager : MonoBehaviour
 
     public void OnNextLevelButtonClicked()
     {
-
+        LevelManager.Instance.LoadNextLevel();
     }
     public void OnRetryButtonClicked()
     {
-
+        LevelManager.Instance.RestartLevel();
     }
 }

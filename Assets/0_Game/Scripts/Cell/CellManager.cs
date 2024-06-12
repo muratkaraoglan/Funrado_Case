@@ -7,7 +7,7 @@ public class CellManager : MonoBehaviour
     [SerializeField] private List<CellData> _myCellsData = new();
     [SerializeField] private List<Cell> _myCells = new();
     Dictionary<Direction, CellManager> _neighboors = new();
-    [SerializeField] private List<CellManager> _neighboorList = new();
+    
     private Cell _topCell;
     private void Awake()
     {
@@ -34,7 +34,6 @@ public class CellManager : MonoBehaviour
                     if (cellManager.CellCount != 0)
                     {
                         _neighboors.Add((Direction)i, cellManager);
-                        _neighboorList.Add(cellManager);
                     }
                 }
             }
@@ -86,7 +85,6 @@ public class CellManager : MonoBehaviour
             if (pair.Value == cellManager)
             {
                 _neighboors.Remove(pair.Key);
-                _neighboorList.Remove(pair.Value);
                 break;
             }
         }
